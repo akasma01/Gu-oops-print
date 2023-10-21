@@ -1,0 +1,109 @@
+Name        : SHUBHAM MISHRA
+Roll NO.    : 22
+Subject	    : OBJECT ORIENTED PROGRAMMING
+Course	    : MCA 1
+Program NO. : 2
+=============================================================================================================================================================================================================================
+Q.2. Write a program to create class Date (int day, int month, int year). Read a
+       value as day from user to display new date after adding the value to day in
+       Date.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream> //including header files
+#include <string>
+
+using namespace std;
+class date // creating a class of date
+{
+    int day, month, year;
+
+public:
+    void inputDate(); // declaration of member functions in class
+    void display();
+    void addDate(int n);
+};
+
+void date::inputDate() // defining the body of function outside class using  scope resolution operator
+{                      // taking input from user
+    cout << "Enter day\n";
+    cin >> day;
+    cout << "Enter month\n";
+    cin >> month;
+    cout << "Enter year\n";
+    cin >> year;
+}
+
+void date::display() // display the details entered by users.
+{
+    cout << day << "-" << month << "-" << year;
+}
+
+void date::addDate(int n) // takes no. of days from user and converts it into day-month-year format then adds it to orignal date and then again makes it into proper format.
+{
+    int m = 0, d = 0, y = 0;
+    if (n > 30)
+    {
+        while (n > 30)
+        {
+            n = n - 30;
+            d = n;
+            m++;
+        }
+
+        while (m > 12)
+        {
+            m -= 12;
+            y++;
+        }
+    }
+    else
+    {
+        d = n;
+    }
+
+    day += d;
+    month += m;
+    year += y;
+
+    while (day > 30)
+    {
+        day -= 30;
+        month++;
+    }
+    while (month > 12)
+    {
+        month -= 12;
+        year++;
+    }
+
+    cout << "The new date is: \n";
+    display();
+}
+
+int main()
+{
+    date d; // creates object of date
+    int n;  // calling a function from main.
+    d.inputDate();
+    cout << "Enter the no. of days you want to add\n";
+    cin >> n;
+    d.addDate(n); // adds n days to the date given by user and shows new date
+
+    return 0;
+}
+
+
+============================================================================================================================================================================================
+OUTPUT:
+============================================================================================================================================================================================
+
+Enter day
+18
+Enter month
+05
+Enter year
+2001
+Enter the no. of days you want to add
+45
+The new date is: 
+3-7-2001

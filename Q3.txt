@@ -1,0 +1,234 @@
+Name        : SHUBHAM MISHRA
+Roll NO.    : 22
+Subject	    : OBJECT ORIENTED PROGRAMMING
+Course	    : MCA 1
+Program NO. : 3
+=============================================================================================================================================================================================================================
+Q.3. Create class STUDENT having rollno, name and age as data members, also take subject with three subjects and initialize their value with minimum passing marks.
+     Using member function, modify marks of student with specific rollno which is given by user.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream> //including header files
+#include <string>
+
+using namespace std;
+
+class student // creating a class of student
+{
+    int roll, age, marks[3];
+    string name;
+
+public:
+    student() // creating a constructor to assign passing marks to all 3 subjects for all objects.
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            marks[i] = 33;
+        }
+    }
+
+    void input(); // declaration of member functions in class
+    void display();
+    friend void editMarks(student s[], int n, int r); // declaration of a friend function in class
+};
+
+void student::input() // defining the body of function outside class using scope resolution operator
+{                     // taking input from user
+    cout << "Enter the roll no. of the student\n";
+    cin >> roll;
+    cout << "Enter the name of the student\n";
+    cin >> name;
+    cout << "Enter the age of the student\n";
+    cin >> age;
+    for (int i = 0; i < 3; i++) // using for loop and array to store marks of 3 subjects
+    {
+        cout << "Enter the marks of subject " << i + 1 << " \n";
+        cin >> marks[i];
+    }
+}
+
+void student::display() // display the details entered by users.
+{
+
+    cout << "The roll no. of the student is " << roll << "\n";
+    cout << "The name of the student is " << name << "\n";
+    cout << "The age of the student is " << age << "\n";
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "The marks of subject " << i + 1 << "is :" << marks[i] << "\n";
+    }
+    cout << "-------------------------------------\n";
+}
+
+void editMarks(student s[], int n, int r) // friend function  will take array of objects and roll no of a student as an argument
+                                          // and will search for that roll no. in all the objects and if found then,
+                                          //  we will edit the marks for that object.
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i].roll == r)
+        {
+            cout << "Enter the marks of subject 1\n";
+            cin >> s[i].marks[0];
+            cout << "Enter the marks of subject 2\n";
+            cin >> s[i].marks[1];
+            cout << "Enter the marks of subject 3\n";
+            cin >> s[i].marks[2];
+
+            cout << "Marks Edited Successfully\n";
+            s[i].display();
+            break;
+        }
+        else
+        {
+            cout << "Sorry no Roll no. found\n";
+        }
+    }
+}
+
+int main()
+{
+    int i, n, roll;
+    string str;
+    // student s[10];
+    cout << "Enter the no. of students you want?\n";
+    cin >> n;
+    student *s = new student[n]; // creating student object dynamically.
+    for (i = 0; i < n; i++)      // using for loop to create n objects given by user
+    {
+        s[i].input();
+    }
+
+    for (i = 0; i < n; i++)
+    {
+        s[i].display();
+    }
+
+    cout << "Do you want to edit marks of any student?[y/n]\n"; // asking if user want to edit marks or not.
+    cin >> str;
+    if (str == "y" || str == "Y")
+    {
+        cout << "Enter the Roll no. of studentwhose marks you want to edit.\n";
+        cin >> roll;
+
+        editMarks(s, n, roll); // calling friend function.
+
+        cout << "Records after editing marks\n\n\n";
+        for (i = 0; i < n; i++)
+        {
+            s[i].display();
+        }
+    }
+    else
+        exit(1);
+}
+
+
+
+============================================================================================================================================================================================
+OUTPUT:
+============================================================================================================================================================================================
+
+Enter the no. of students you want?
+3
+Enter the roll no. of the student
+1
+Enter the name of the student
+shubham
+Enter the age of the student
+22
+Enter the marks of subject 1 
+88
+Enter the marks of subject 2 
+95
+Enter the marks of subject 3 
+86
+Enter the roll no. of the student
+2
+Enter the name of the student
+shivam
+Enter the age of the student
+24
+Enter the marks of subject 1 
+74
+Enter the marks of subject 2 
+75
+Enter the marks of subject 3 
+72
+Enter the roll no. of the student
+3
+Enter the name of the student
+satyam
+Enter the age of the student
+50
+Enter the marks of subject 1 
+50
+Enter the marks of subject 2 
+50
+Enter the marks of subject 3 
+50
+The roll no. of the student is 1
+The name of the student is shubham
+The age of the student is 22
+The marks of subject 1is :88
+The marks of subject 2is :95
+The marks of subject 3is :86
+-------------------------------------
+The roll no. of the student is 2
+The name of the student is shivam
+The age of the student is 24
+The marks of subject 1is :74
+The marks of subject 2is :75
+The marks of subject 3is :72
+-------------------------------------
+The roll no. of the student is 3
+The name of the student is satyam
+The age of the student is 50
+The marks of subject 1is :50
+The marks of subject 2is :50
+The marks of subject 3is :50
+-------------------------------------
+Do you want to edit marks of any student?[y/n]
+y
+Enter the Roll no. of studentwhose marks you want to edit.
+3
+Sorry no Roll no. found
+Sorry no Roll no. found
+Enter the marks of subject 1
+78
+Enter the marks of subject 2
+86
+Enter the marks of subject 3
+82
+Marks Edited Successfully
+The roll no. of the student is 3
+The name of the student is satyam
+The age of the student is 50
+The marks of subject 1is :78
+The marks of subject 2is :86
+The marks of subject 3is :82
+-------------------------------------
+Records after editing marks
+
+
+The roll no. of the student is 1
+The name of the student is shubham
+The age of the student is 22
+The marks of subject 1is :88
+The marks of subject 2is :95
+The marks of subject 3is :86
+-------------------------------------
+The roll no. of the student is 2
+The name of the student is shivam
+The age of the student is 24
+The marks of subject 1is :74
+The marks of subject 2is :75
+The marks of subject 3is :72
+-------------------------------------
+The roll no. of the student is 3
+The name of the student is satyam
+The age of the student is 50
+The marks of subject 1is :78
+The marks of subject 2is :86
+The marks of subject 3is :82
+-------------------------------------

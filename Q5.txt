@@ -1,0 +1,116 @@
+Name        : SHUBHAM MISHRA
+Roll NO.    : 22
+Subject	    : OBJECT ORIENTED PROGRAMMING
+Course	    : MCA 1
+Program NO. : 5
+=============================================================================================================================================================================================================================
+Q-5.Write a program to create class ‘Search’ having data members (int a[ ], x) and define member functions as void input(), void output(), void search(int position),
+void add(int value) to display result.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+//class name
+class Search {
+private://access modifier
+    int a[100]; // Assuming a maximum of 100 elements
+    int x;
+    int size;		//data members
+
+public:
+	void input();
+	void output();
+	void search(int x);
+	void add(int value);
+    
+};
+  void Search::void input()
+ {
+        cout << "Enter the size of the array: ";
+        cin >> size;
+
+        cout << "Enter " << size << " elements:" << std::endl;
+        for (int i = 0; i < size; ++i) {
+            cin >> a[i];
+        }
+
+    }
+
+  void Search::void output() 
+    {
+        cout << "Array elements: ";
+        for (int i = 0; i < size; ++i) {
+            std::cout << a[i] << " ";
+        }
+        cout << endl;
+    }
+ 
+  void Search::void search(int x) 
+	{
+	    // Search for 'x' in the array
+	    int position = -1; // Initialize to -1, indicating not found
+	    
+	    for (int i = 0; i < size; ++i) {
+	        if (a[i] == x) {
+	            position = i;
+	            break;
+	        }
+	    }
+	    
+        if (position == -1) {
+            cout << "Value " << x << " not found in the array." << endl;
+        } else {
+            cout << "Value " << x << " found at position " << position << " (0-based index)." <<endl;
+        }
+    }
+
+    void Search::void add(int value) {
+        if (size < 100) { // Check if there is room to add an element
+            a[size] = value;
+            size++;
+            cout << "Value " << value << " added to the array." << endl;
+        } else {
+            cout << "Array is full. Cannot add more elements." << endl;
+        }
+    }
+int main() {
+	int x;
+    Search s;
+    s.input();
+    s.output();
+    
+    cout << "Enter the value to search for (x): ";
+    cin >> x;
+
+
+    s.search(x);
+
+    // Add a new value to the array
+    int value;
+    cout << "Enter a value to add to the array: ";
+    cin >> value;
+    s.add(value);
+
+    s.output(); // Display the array after adding the value
+
+    return 0;
+}
+OUTPUT:
+
+Enter the size of the array: 5
+Enter 5 elements:
+3
+6
+7
+9
+10
+Array elements: 3 6 7 9 10
+Enter the value to search for (x): 7
+Value 7 found at position 2 (0-based index).
+Enter a value to add to the array: 1
+Value 1 added to the array.
+Array elements: 3 6 7 9 10 1
+
+--------------------------------
+Process exited after 13.05 seconds with return value 0
+Press any key to continue . . .

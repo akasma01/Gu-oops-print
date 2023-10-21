@@ -1,0 +1,162 @@
+Name        : SHUBHAM MISHRA
+Roll NO.    : 22
+Subject	    : OBJECT ORIENTED PROGRAMMING
+Course	    : MCA 1
+Program NO. : 1
+=============================================================================================================================================================================================================================
+Q.1 Write a program to create class Student with student’s rollno, name and
+    marks of three subjects (OOCP, AI and MF) and display the details of student
+    with total marks of all subjects along with the percentage in proper
+    format.(Output should be in descending order of percentage.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream> //including header files
+#include <string>
+
+using namespace std;
+class student
+{ // creating a class
+    int roll, marks[3];
+    string name;
+    float per = 0;
+
+public:
+    void input(); // declaration of member functions in class
+    void display();
+    void calPercentage();
+    friend void sort(student s[], int n); // friend function to take entire student array as an argument and then sort values based on percentage
+};
+
+void student::input() // defining the body of function outside class using scope resolution operator
+                      // taking studet details from user
+{
+    cout << "Enter the roll no. of the student\n";
+    cin >> roll;
+    cout << "Enter the name of the student\n";
+    cin >> name;
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "Enter the marks of subject " << i + 1 << " \n";
+        cin >> marks[i];
+    }
+}
+
+void student::display() // display the details entered by users.
+{
+
+    cout << "The roll no. of the student is " << roll << "\n";
+    cout << "The name of the student is " << name << "\n";
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "The marks of subject " << i + 1 << "is :" << marks[i] << "\n";
+    }
+    cout << "The Percentage of the student is " << per << "\n";
+    cout << "-------------------------------------\n";
+}
+
+void student::calPercentage() // calculates the percentage of marks got in all 3 subjects for each student.
+{
+    for (int i = 0; i < 3; i++)
+    {
+        per += marks[i];
+    }
+    per = per / 3;
+}
+
+void sort(student s[], int n) // friend function to take entire student array as an argument and then sort values based on percentage
+                              // As it is a friend function no scope resolution operator is required.
+{
+    student temp;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (s[i].per < s[j].per) // using bubble sort to sort objects with higher percentage in descending order.
+            {
+                temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cout << "Enter the No. of students";
+    cin >> n;
+    student *s = new student[n]; // creating student object dynamically.
+    for (int i = 0; i < n; i++)  // using for loop to create n objects given by user
+    {
+        s[i].input(); // calling functions for each objects using for loop
+        s[i].calPercentage();
+    }
+
+    sort(s, n); // calling friend function
+
+    cout << "From main";
+    for (int i = 0; i < n; i++)
+    {
+        s[i].display(); // calling functions for each objects using for loop
+    }
+
+    return 0;
+}
+
+============================================================================================================================================================================================
+OUTPUT:
+============================================================================================================================================================================================
+
+Enter the No. of students3
+Enter the roll no. of the student
+1
+Enter the name of the student
+shubham
+Enter the marks of subject 1 
+56
+Enter the marks of subject 2 
+86
+Enter the marks of subject 3 
+95
+Enter the roll no. of the student
+2
+Enter the name of the student
+shivam
+Enter the marks of subject 1 
+78
+Enter the marks of subject 2 
+45
+Enter the marks of subject 3 
+88
+Enter the roll no. of the student
+3
+Enter the name of the student
+satyam
+Enter the marks of subject 1 
+75
+Enter the marks of subject 2 
+84
+Enter the marks of subject 3 
+63
+From mainThe roll no. of the student is 1
+The name of the student is shubham
+The marks of subject 1is :56
+The marks of subject 2is :86
+The marks of subject 3is :95
+The Percentage of the student is 79
+-------------------------------------
+The roll no. of the student is 3
+The name of the student is satyam
+The marks of subject 1is :75
+The marks of subject 2is :84
+The marks of subject 3is :63
+The Percentage of the student is 74
+-------------------------------------
+The roll no. of the student is 2
+The name of the student is shivam
+The marks of subject 1is :78
+The marks of subject 2is :45
+The marks of subject 3is :88
+The Percentage of the student is 70.3333
+-------------------------------------

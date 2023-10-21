@@ -1,0 +1,293 @@
+Name        : SHUBHAM MISHRA
+Roll NO.    : 22
+Subject	    : OBJECT ORIENTED PROGRAMMING
+Course	    : MCA 1
+Program NO. : 4
+=============================================================================================================================================================================================================================
+Q.4. Define a class to represent a bank account. Include the following members :
+     DATA MEMBERS MEMBER FUNCTIONS
+------------------------ ------------------------------
+       Name of depositor (1) To assign initial values
+       Account Number (2) To Deposit the amount
+       Type of Account (3) To withdraw an amount after checking the
+       Balance amount in account (4) To display name and balance
+       Write C++ program to handle 10 customers.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// class
+class Bank {
+private:
+    int acno;
+    string name,type;
+    long balance;
+
+public:
+    void OpenAccount()
+    {
+        cout << "Enter Account Number: ";
+        cin >> acno;
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Account type: ";
+        cin >> type;
+        cout << "Enter  Balance: ";
+        cin >> balance;
+    }
+    void ShowAccount()
+    {
+        cout<<"==================================================";
+        cout << "Account Number: " << acno << endl;
+        cout << "Name: " << name << endl;
+        cout << "Account type: " << type << endl;
+        cout << "Balance: " << balance << endl;
+        cout<<"==================================================";
+    }
+    void Deposit()
+    {
+        long amt;
+        cout << "Enter Amount U want to deposit? ";
+        cin >> amt;
+        balance = balance + amt;
+    }
+    void Withdrawal()
+    {
+        long amt;
+        cout << "Enter Amount U want to withdraw? ";
+        cin >> amt;
+        if (amt <= balance)
+            balance = balance - amt;
+        else
+            cout << "Less Balance..." << endl;
+    }
+    int Search(int);
+};
+
+int Bank::Search(int a)
+{
+    if (acno == a) {
+        ShowAccount();
+        return (1);
+    }
+    return (0);
+}
+
+// main code
+int main()
+{
+    
+    int n;
+    cout<<"Enter the number of customers you want to handle\n";
+    cin>>n;
+    Bank *C= new Bank[n];
+    int found = 0, a, ch, i;
+    for (i = 0; i <n; i++) {
+        C[i].OpenAccount();
+    }
+
+    do {
+        // display options
+        cout << "\n\n1:Display All\n2:By Account No\n3:Deposit\n4:Withdraw\n5:Exit" << endl;
+
+        // user input
+        cout << "Please input your choice: ";
+        cin >> ch;
+
+        switch (ch) {
+        case 1: // displaying account info
+            for (i = 0; i <n; i++) {
+                C[i].ShowAccount();
+            }
+            break;
+        case 2: // searching the record
+            cout << "Account Number? ";
+            cin >> a;
+            for (i = 0; i <n; i++) {
+                found = C[i].Search(a);
+                if (found)
+                    break;
+            }
+            if (!found)
+                cout << "Record Not Found" << endl;
+            break;
+        case 3: // deposit operation
+            cout << "Account Number To Deposit Amount? ";
+            cin >> a;
+            for (i = 0; i <n; i++) {
+                found = C[i].Search(a);
+                if (found) {
+                    C[i].Deposit();
+                    break;
+                }
+            }
+            if (!found)
+                cout << "Record Not Found" << endl;
+            break;
+        case 4: // withdraw operation
+            cout << "Account Number To Withdraw Amount? ";
+            cin >> a;
+            for (i = 0; i <n; i++) {
+                found = C[i].Search(a);
+                if (found) {
+                    C[i].Withdrawal();
+                    break;
+                }
+            }
+            if (!found)
+                cout << "Record Not Found" << endl;
+            break;
+        case 5: // exit
+            cout << "Have a nice day" << endl;
+            break;
+        default:
+            cout << "Wrong Option" << endl;
+        }
+    } while (ch != 5);
+    return 0;
+}
+
+============================================================================================================================================================================================
+OUTPUT:
+============================================================================================================================================================================================
+
+Enter the number of customers you want to handle
+3
+Enter Account Number: 101
+Enter Name: SHUBHAM
+Enter Account type: SAVING  
+Enter  Balance: 7000 
+Enter Account Number: 102
+Enter Name: SATYAM
+Enter Account type: CURRENT
+Enter  Balance: 80000
+Enter Account Number: 103
+Enter Name: SHIVAAM
+Enter Account type: SAVING 
+Enter  Balance: 15000
+
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 1
+==================================================Account Number: 101
+Name: SHUBHAM
+Account type: SAVING
+Balance: 7000
+====================================================================================================Account Number: 102
+Name: SATYAM
+Account type: CURRENT
+Balance: 80000
+====================================================================================================Account Number: 103
+Name: SHIVAAM
+Account type: SAVING
+Balance: 15000
+==================================================
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 2
+Account Number? 103
+==================================================Account Number: 103
+Name: SHIVAAM
+Account type: SAVING
+Balance: 15000
+==================================================
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 3
+Account Number To Deposit Amount? 101
+==================================================Account Number: 101
+Name: SHUBHAM
+Account type: SAVING
+Balance: 7000
+==================================================Enter Amount U want to deposit? 9000
+
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 1
+==================================================Account Number: 101
+Name: SHUBHAM
+Account type: SAVING
+Balance: 16000
+====================================================================================================Account Number: 102
+Name: SATYAM
+Account type: CURRENT
+Balance: 80000
+====================================================================================================Account Number: 103
+Name: SHIVAAM
+Account type: SAVING
+Balance: 15000
+==================================================
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 4
+Account Number To Withdraw Amount? 102
+==================================================Account Number: 102
+Name: SATYAM
+Account type: CURRENT
+Balance: 80000
+==================================================Enter Amount U want to withdraw? 40000
+
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 1
+==================================================Account Number: 101
+Name: SHUBHAM
+Account type: SAVING
+Balance: 16000
+====================================================================================================Account Number: 102
+Name: SATYAM
+Account type: CURRENT
+Balance: 40000
+====================================================================================================Account Number: 103
+Name: SHIVAAM
+Account type: SAVING
+Balance: 15000
+==================================================
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 4
+Account Number To Withdraw Amount? 101
+==================================================Account Number: 101
+Name: SHUBHAM
+Account type: SAVING
+Balance: 16000
+==================================================Enter Amount U want to withdraw? 20000
+Less Balance...
+
+
+1:Display All
+2:By Account No
+3:Deposit
+4:Withdraw
+5:Exit
+Please input your choice: 5
